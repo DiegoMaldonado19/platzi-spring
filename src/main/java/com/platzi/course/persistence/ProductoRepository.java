@@ -4,8 +4,10 @@
  */
 package com.platzi.course.persistence;
 
+import com.platzi.course.domain.Product;
 import com.platzi.course.persistence.crud.ProductoCrudRepository;
 import com.platzi.course.persistence.entity.Producto;
+import com.platzi.course.persistence.mapper.ProductMapper;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.stereotype.Repository;
@@ -15,14 +17,17 @@ import org.springframework.stereotype.Repository;
  * @author CARIadmin
  */
 @Repository
-public class ProductoRepository {
+public class ProductoRepository implements ProductRepository{
     private ProductoCrudRepository productoCrudRepository;
+    private ProductMapper mapper;
     
     /* Con este metodo obtenemos todas las listas de productos gracias  los 
     repos de Spring Data
     */
-    public List<Producto> getAll(){
-        return (List<Producto>) productoCrudRepository.findAll();
+    @Override
+    public List<Product> getAll(){
+        List<Producto> productos = (List<Producto>) productoCrudRepository.findAll();
+        return mapper.toProducts(productos);
     }
     
     /* Query Methods Implementacion*/
@@ -44,5 +49,26 @@ public class ProductoRepository {
     
     public void delete(int idProducto){
         productoCrudRepository.deleteById(idProducto);
+    }
+
+    @Override
+    public Optional<List<Product>> getByCategory(int categoryId) {
+        List<Producto> productos = productoCrudRepository.findByIdCategoriaOrderByNombreAsc(categoryId);
+        return Optional.of(mapper.toProducts(productos));
+    }
+
+    @Override
+    public Optional<List<Product>> getScarseProducts(int quantity) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public Optional<List<Product>> getProduct(int productId) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public Product save(Product product) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }
