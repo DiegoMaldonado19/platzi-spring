@@ -18,4 +18,10 @@ public interface ProductRepository {
     Optional<List<Product>> getByCategory(int categoryId);
     
     Optional<List<Product>> getScarseProducts(int quantity);
+    
+    Optional<List<Product>> getProduct(int productId);
+    
+    Product save(Product product);
+    
+    void delete(int productId);
 }
