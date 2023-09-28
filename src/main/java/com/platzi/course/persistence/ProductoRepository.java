@@ -30,25 +30,9 @@ public class ProductoRepository implements ProductRepository{
         return mapper.toProducts(productos);
     }
     
-    /* Query Methods Implementacion*/
-    public List<Producto> getByCategoria(int idCategoria){
-        return productoCrudRepository.findByIdCategoriaOrderByNombreAsc(idCategoria);
-    }
-    
-    public Optional<List<Producto>> getEscasos(int cantidad){
-        return productoCrudRepository.findByCantidadStockLessThanAndEstado(cantidad, true);
-    }
-    
-    public Optional<Producto> getProducto(int idProducto){
-        return productoCrudRepository.findById(idProducto);
-    }
-    
-    public Producto save(Producto producto){
-        return productoCrudRepository.save(producto);
-    }
-    
-    public void delete(int idProducto){
-        productoCrudRepository.deleteById(idProducto);
+    @Override
+    public void delete(int productId){
+        productoCrudRepository.deleteById(productId);
     }
 
     @Override
@@ -59,16 +43,18 @@ public class ProductoRepository implements ProductRepository{
 
     @Override
     public Optional<List<Product>> getScarseProducts(int quantity) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Optional<List<Producto>> productos = productoCrudRepository.findByCantidadStockLessThanAndEstado(quantity, true);
+        return productos.map(prods -> mapper.toProducts(prods));
     }
 
     @Override
-    public Optional<List<Product>> getProduct(int productId) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public Optional<Product> getProduct(int productId) {
+        return productoCrudRepository.findById(productId).map(producto -> mapper.toProduct(producto));
     }
 
     @Override
     public Product save(Product product) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Producto producto = mapper.toProducto(product);
+        return mapper.toProduct(productoCrudRepository.save(producto));
     }
 }
