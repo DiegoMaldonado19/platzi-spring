@@ -19,9 +19,10 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class ProductoRepository implements ProductRepository{
-    @Autowired
+    @Autowired /*Spring crea objetos por nosotros, debemos estar seguro que es un componente de spring */
     private ProductoCrudRepository productoCrudRepository;
-    @Autowired
+    
+    @Autowired /*Spring crea objetos por nosotros, debemos estar seguro que es un componente de spring */
     private ProductMapper mapper;
     
     /* Con este metodo obtenemos todas las listas de productos gracias  los 
