@@ -10,6 +10,7 @@ import com.platzi.course.persistence.entity.Producto;
 import com.platzi.course.persistence.mapper.ProductMapper;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -18,7 +19,9 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class ProductoRepository implements ProductRepository{
+    @Autowired
     private ProductoCrudRepository productoCrudRepository;
+    @Autowired
     private ProductMapper mapper;
     
     /* Con este metodo obtenemos todas las listas de productos gracias  los 
