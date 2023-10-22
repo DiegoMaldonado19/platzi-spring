@@ -32,7 +32,7 @@ public class PurchaseController {
         return new ResponseEntity<>(purchaseService.getAll(), HttpStatus.OK);
     }
     
-    @GetMapping("/{clientId}")
+    @GetMapping("/client/{clientId}")
     public ResponseEntity<List<Purchase>> getByClient(@PathVariable("clientId") String clientId){
         return purchaseService.getByClient(clientId).map(
                 purchases -> new ResponseEntity<>(purchases, HttpStatus.OK)
