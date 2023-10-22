@@ -6,6 +6,7 @@ package com.platzi.course.persistence.mapper;
 
 import com.platzi.course.domain.Purchase;
 import com.platzi.course.persistence.entity.Compra;
+import java.util.List;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mappings;
@@ -27,6 +28,7 @@ public interface PurchaseMapper {
         @Mapping(source = "productos", target = "item")
     })
     Purchase toPurchase(Compra compra);
+    List<Purchase> toPurchases(List<Compra> compras);
     
     @InheritInverseConfiguration
     @Mapping(target = "cliente", ignore = true)
