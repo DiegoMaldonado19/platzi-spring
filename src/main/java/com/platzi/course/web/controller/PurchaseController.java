@@ -6,6 +6,9 @@ package com.platzi.course.web.controller;
 
 import com.platzi.course.domain.Purchase;
 import com.platzi.course.domain.service.PurchaseService;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,11 +31,20 @@ public class PurchaseController {
     private PurchaseService purchaseService;
     
     @GetMapping("/all")
+    @ApiOperation("Search a purchase with an ID")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "OK")
+    })
     public ResponseEntity<List<Purchase>> getAll(){
         return new ResponseEntity<>(purchaseService.getAll(), HttpStatus.OK);
     }
     
     @GetMapping("/client/{clientId}")
+    @ApiOperation("Search a purchase by a client id")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "OK"),
+            @ApiResponse(code = 404, message = "Product not found"),
+    })
     public ResponseEntity<List<Purchase>> getByClient(@PathVariable("clientId") String clientId){
         return purchaseService.getByClient(clientId).map(
                 purchases -> new ResponseEntity<>(purchases, HttpStatus.OK)
@@ -40,6 +52,10 @@ public class PurchaseController {
     }
     
     @PostMapping("/save")
+    @ApiOperation("Save a new purchase")
+    @ApiResponses({
+            @ApiResponse(code = 200, message = "OK")
+    })
     public ResponseEntity<Purchase> save(@RequestBody Purchase purchase) {
         return new ResponseEntity<>(purchaseService.save(purchase), HttpStatus.CREATED);
     }
