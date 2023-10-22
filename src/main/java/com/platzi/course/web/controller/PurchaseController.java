@@ -7,7 +7,6 @@ package com.platzi.course.web.controller;
 import com.platzi.course.domain.Purchase;
 import com.platzi.course.domain.service.PurchaseService;
 import java.util.List;
-import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

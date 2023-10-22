@@ -9,11 +9,13 @@ import com.platzi.course.persistence.PurchaseRepository;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  *
  * @author ACER
  */
+@Service
 public class PurchaseService {
     @Autowired
     private PurchaseRepository purchaseRepository;
